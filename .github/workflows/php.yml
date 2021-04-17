@@ -65,7 +65,7 @@ jobs:
           if [ ${{ matrix.db-type }} == 'mysql' ]; then
             sudo service mysql start && mysql -h 127.0.0.1 -u root -proot -e 'CREATE DATABASE IF NOT EXISTS test;';
           fi
-          composer run-tests-${{ matrix.db-type }} root root
+          composer ${{ matrix.db-type }} root root
 
 #      Phpstan runs on one DB engine only
       - name: Run phpstan

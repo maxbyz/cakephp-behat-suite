@@ -1,19 +1,17 @@
 {
-  "name": "vierge-noire/cakephp-behat-suite",
+  "name": "passbolt/cakephp-behat-suite",
   "description": "Test suite for behavior driven tests.",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Juan Pablo Ramirez",
-      "email": "pabloelcolombiano@gmail.com"
-    }
+  "homepage": "https://www.passbolt.com",
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "password",
+    "passbolt"
   ],
   "minimum-stability": "dev",
   "require": {
     "behat/behat": "^3.8@dev",
     "cakephp/cakephp": "^4.0",
-    "pakacuda/cakephp-fixture-factories": "^2.0.3",
-    "vierge-noire/cakephp-test-suite-light": "^2.0"
+    "vierge-noire/cakephp-fixture-factories": "^2.0.3"
   },
   "require-dev": {
     "phpstan/phpstan": "^0.12.48@dev",
@@ -35,10 +33,10 @@
     }
   },
   "scripts": {
-    "run-tests-mysql": "bash run_tests.sh Mysql",
-    "run-tests-pgsql": "bash run_tests.sh Postgres",
-    "run-tests-sqlite": "bash run_tests.sh Sqlite",
-    "run-phpstan": "vendor/bin/phpstan analyse"
+    "mysql": "bash run_tests.sh Mysql",
+    "pgsql": "bash run_tests.sh Postgres",
+    "sqlite": "bash run_tests.sh Sqlite",
+    "phpstan": "vendor/bin/phpstan analyse"
   },
   "config": {
     "sort-packages": true

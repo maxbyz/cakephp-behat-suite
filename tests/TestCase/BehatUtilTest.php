@@ -49,28 +49,4 @@ class BehatUtilTest extends TestCase
     {
         $this->assertSame($expected, BehatUtil::processN($input));
     }
-
-    public function dataProviderForTestGetFixtureFactory()
-    {
-        return [
-            ['User', UserFactory::class],
-            ['Users', UserFactory::class],
-            ['users', UserFactory::class],
-            ['user', UserFactory::class],
-            ['TestPlugin.Bill', BillFactory::class],
-            ['TestPlugin.Bills', BillFactory::class],
-            ['TestPlugin.bills', BillFactory::class],
-            ['TestPlugin.bill', BillFactory::class],
-        ];
-    }
-
-    /**
-     * @dataProvider dataProviderForTestGetFixtureFactory
-     * @param $input
-     * @param $expected
-     */
-    public function testGetFixtureFactory($input, $expected)
-    {
-        $this->assertInstanceOf($expected, BehatUtil::getFixtureFactory($input));
-    }
 }

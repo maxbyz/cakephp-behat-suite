@@ -1,18 +1,60 @@
-# cakephp-behat-suite
-A CakePHP dedicated suite for behavior driven development.
+CakePHP Behat Suite
+==============
+	      ____                  __          ____
+	     / __ \____  _____ ____/ /_  ____  / / /_
+	    / /_/ / __ `/ ___/ ___/ __ \/ __ \/ / __/
+	   / ____/ /_/ (__  |__  ) /_/ / /_/ / / /_
+	  /_/    \__,_/____/____/_.___/\____/_/\__/
 
-## Installation
+	The open source password manager for teams
+	(c) 2021 Passbolt SA
+
+License
+==============
+
+Passbolt - Open source password manager for teams
+
+(c) 2021 Passbolt SA
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General
+Public License (AGPL) as published by the Free Software Foundation version 3.
+
+The name "Passbolt" is a registered trademark of Passbolt SA, and Passbolt SA hereby declines to grant a trademark
+license to "Passbolt" pursuant to the GNU Affero General Public License version 3 Section 7(e), without a separate
+agreement with Passbolt SA.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along with this program. If not,
+see [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.html).
+
+Images and logos in /src/img/third_party belongs to their respective owner.
+
+About
+=========
+
+This is CakePHP adapter for the well-known Behat test suite, dedicated to behavioral driven testing.
+
+Credits
+=========
+
+https://www.passbolt.com/credits
+
+Juan Pablo Ramirez `&&` Nicolas Masson
+
+Install
+=========
+
 For CakePHP ^4.0:
 ```
-composer require --dev vierge-noire/cakephp-behat-suite "^0.2"
+composer require --dev passbolt/cakephp-behat-suite "^0.2"
 ```
 
 For CakePHP ^3.8:
 ```
-composer require --dev vierge-noire/cakephp-behat-suite "^0.1"
+composer require --dev passbolt/cakephp-behat-suite "^0.1"
 ```
-
-## Setup
 
 Copy this file in the main directory of your app, under the name `behat.yml:
 ```
@@ -43,6 +85,9 @@ The argument `bootstrap:` should direct to the `bootstrap.php` file of your test
 For each suite, you will have to specify the location of your features under the key `path`. 
 
 The package provides a set of steps defined by `CakephpBehatSuite\Context\BootstrapContext`.
+
+How to use the suite?
+=============================
 
 ## Run your tests
 The command `vendor/bin/behat` will run your tests as defined in the `behat.yml file.
@@ -122,16 +167,3 @@ Take full advantage of the [Phinx migrations](https://book.cakephp.org/migration
 of your test DB. This is optional, but __highly recommended__.
 
 The [CakePHP Test Migrator package](https://github.com/vierge-noire/cakephp-test-migrator) will assist you in doing this very simply.
-
-
-## License
-
-The CakePHPFixtureFactories plugin is offered under an [MIT license](https://opensource.org/licenses/mit-license.php).
-
-Copyright 2020 Juan Pablo Ramirez and Nicolas Masson
-
-Licensed under The MIT License Redistributions of files must retain the above copyright notice.
-
-## Authors
-* Juan Pablo Ramirez
-* Nicolas Masson

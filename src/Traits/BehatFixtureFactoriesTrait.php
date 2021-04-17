@@ -2,14 +2,17 @@
 declare(strict_types=1);
 
 /**
- * Licensed under The MIT License
+ * Passbolt ~ Open source password manager for teams
+ * Copyright (c) Passbolt SA (https://www.passbolt.com)
+ *
+ * Licensed under GNU Affero General Public License version 3 of the or any later version.
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) 2020 Juan Pablo Ramirez and Nicolas Masson
- * @link          https://webrider.de/
+ * @copyright     Copyright (c) Passbolt SA (https://www.passbolt.com)
+ * @license       https://opensource.org/licenses/AGPL-3.0 AGPL License
+ * @link          https://www.passbolt.com Passbolt(tm)
  * @since         1.0.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 namespace CakephpBehatSuite\Traits;
@@ -18,10 +21,13 @@ use Behat\Gherkin\Node\TableNode;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
 use CakephpBehatSuite\BehatUtil;
+use CakephpFixtureFactories\Factory\FactoryAwareTrait;
 use Exception;
 
 trait BehatFixtureFactoriesTrait
 {
+    use FactoryAwareTrait;
+
     /**
      * @Given I create :n :model
      *
@@ -32,7 +38,7 @@ trait BehatFixtureFactoriesTrait
      */
     public function iCreateModel($n, string $model)
     {
-        return BehatUtil::getFixtureFactory($model)
+        return $this->getFactory($model)
             ->setTimes(BehatUtil::processN($n))
             ->persist();
     }
@@ -49,7 +55,7 @@ trait BehatFixtureFactoriesTrait
      */
     public function iCreateModelWithField($n, string $modelName, string $field, $value)
     {
-        return BehatUtil::getFixtureFactory($modelName)
+        return $this->getFactory($modelName)
             ->patchData([$field => $value])
             ->setTimes(BehatUtil::processN($n))
             ->persist();
@@ -66,7 +72,7 @@ trait BehatFixtureFactoriesTrait
      */
     public function iCreateModelWithData($n, string $modelName, TableNode $data)
     {
-        return BehatUtil::getFixtureFactory($modelName)
+        return $this->getFactory($modelName)
             ->patchData(BehatUtil::processTableNode($data))
             ->setTimes(BehatUtil::processN($n))
             ->persist();
@@ -86,7 +92,7 @@ trait BehatFixtureFactoriesTrait
     public function iCreateModelWithAssociatedField($n, string $modelName, $m, string $associationPath, string $field, $value)
     {
         $m = BehatUtil::processN($m);
-        return BehatUtil::getFixtureFactory($modelName)
+        return $this->getFactory($modelName)
             ->setTimes(BehatUtil::processN($n))
             ->with($associationPath."[$m]", [$field => $value])
             ->persist();
@@ -105,7 +111,7 @@ trait BehatFixtureFactoriesTrait
     {
         $data = BehatUtil::processTableNode($data);
 
-        return BehatUtil::getFixtureFactory($modelName)
+        return $this->getFactory($modelName)
             ->setTimes(BehatUtil::processN($n))
             ->with($associationPath, $data)
             ->persist();
