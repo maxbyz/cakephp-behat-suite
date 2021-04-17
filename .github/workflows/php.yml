@@ -70,6 +70,6 @@ jobs:
 #      Phpstan runs on one DB engine only
       - name: Run phpstan
         run: |
-          if [ ${{ matrix.db-type }} == 'mysql' ]; then
-            composer run-phpstan
+          if [ ${{ matrix.db-type }} == 'sqlite' ]; then
+            composer phpstan
           fi
