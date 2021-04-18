@@ -28,7 +28,7 @@ trait BehatUtil
      *
      * @return array
      */
-    public function processTableNode(TableNode $table): array
+    public function tableNodeToArray(TableNode $table): array
     {
         $data = $table->getColumnsHash();
         if (count($data) === 1) {

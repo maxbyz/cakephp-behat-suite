@@ -52,7 +52,7 @@ trait BehatTableRegistryTrait
      */
     public function thisModelExists(string $model, TableNode $data): void
     {
-        $data = $this->processTableNode($data);
+        $data = $this->tableNodeToArray($data);
         Assert::assertTrue($this->getTable($model)->exists($data), "The {$model} could not be found.");
     }
 
@@ -65,7 +65,7 @@ trait BehatTableRegistryTrait
      */
     public function theTableRegistryHas(string $model, TableNode $data): void
     {
-        $data = $this->processTableNode($data);
+        $data = $this->tableNodeToArray($data);
         Assert::assertTrue(
             TableRegistry::getTableLocator()->get($model)->exists($data),
             "The {$model} could not be found."

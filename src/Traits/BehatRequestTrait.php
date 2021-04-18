@@ -17,15 +17,11 @@ declare(strict_types=1);
 
 namespace CakephpBehatSuite\Traits;
 
+use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 
 trait BehatRequestTrait
 {
-    /**
-     * @var array
-     */
-    protected $payload = [];
-
     /**
      * @Given I get :url
      *
@@ -38,29 +34,15 @@ trait BehatRequestTrait
     }
 
     /**
-     * @Given I set the payload to:
-     *
-     * @param string $payload
-     */
-    public function setPayload(string $payload): void
-    {
-        $this->payload = $this->jsonDecodeToArray($payload);
-    }
-
-    /**
-     * @Given I post :url with payload:
+     * @Given I post :url with payload
      *
      * @param string    $url
-     * @param array|TableNode     $payload
+     * @param string|array|TableNode $payload
      * @return void
      */
-    public function postUrlWithData(string $url, $payload): void
+    public function postUrlWithPayload($url, $payload): void
     {
-        if ($payload instanceof TableNode) {
-            $payload = $this->processTableNode($payload);
-        }
-
-        $this->post($url, $payload);
+        $this->post($url, $this->payloadToArray($payload));
     }
 
     /**
@@ -71,23 +53,19 @@ trait BehatRequestTrait
      */
     public function postUrl(string $url): void
     {
-        $this->postUrlWithData($url, $this->payload);
+        $this->post($url);
     }
 
     /**
-     * @Given I put :url with data:
+     * @Given I put :url with payload
      *
      * @param string    $url
-     * @param array|TableNode     $data
+     * @param array|TableNode|string     $payload
      * @return void
      */
-    public function putUrlWithData(string $url, $data): void
+    public function putUrlWithPayload(string $url, $payload): void
     {
-        if ($data instanceof TableNode) {
-            $data = $this->processTableNode($data);
-        }
-
-        $this->put($url, $data);
+        $this->put($url, $this->payloadToArray($payload));
     }
 
     /**
@@ -98,7 +76,7 @@ trait BehatRequestTrait
      */
     public function putUrl(string $url): void
     {
-        $this->putUrlWithData($url, []);
+        $this->put($url);
     }
 
     /**
@@ -109,8 +87,6 @@ trait BehatRequestTrait
      */
     public function deleteUrl(string $url): void
     {
-        $this->enableSecurityToken();
-
         $this->delete($url);
     }
 
@@ -122,5 +98,25 @@ trait BehatRequestTrait
     public function csrfTokenIsDisabled(): void
     {
         $this->_csrfToken = false;
+    }
+
+    /**
+     * Convert the payload to an array
+     *
+     * @param string    $url
+     * @param PyStringNode|TableNode $payload
+     * @return void
+     */
+    protected function payloadToArray($payload): array
+    {
+        if ($payload instanceof TableNode) {
+            $payload = $this->tableNodeToArray($payload);
+        } elseif ($payload instanceof PyStringNode) {
+            $payload = $this->jsonDecodeToArray($payload->getRaw());
+        } else {
+            throw new \Exception("Unknown payload type :" . get_class($payload));
+        }
+
+        return $payload;
     }
 }

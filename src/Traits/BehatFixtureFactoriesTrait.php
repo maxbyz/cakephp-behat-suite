@@ -72,7 +72,7 @@ trait BehatFixtureFactoriesTrait
     public function iCreateModelWithData($n, string $modelName, TableNode $data)
     {
         return $this->getFactory($modelName)
-            ->patchData($this->processTableNode($data))
+            ->patchData($this->tableNodeToArray($data))
             ->setTimes($this->processN($n))
             ->persist();
     }
@@ -108,7 +108,7 @@ trait BehatFixtureFactoriesTrait
      */
     public function iCreateModelWithAssociatedData($n, string $modelName, string $associationPath, TableNode $data)
     {
-        $data = $this->processTableNode($data);
+        $data = $this->tableNodeToArray($data);
 
         return $this->getFactory($modelName)
             ->setTimes($this->processN($n))
