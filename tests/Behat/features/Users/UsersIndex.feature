@@ -5,7 +5,7 @@ Feature: Users index
     And I log in
 
   Scenario:
-    When I create a user :
+    When I create a user
     | username  | email        |
     | foo       | bar@bar.bar  |
     And I get 'users/index'

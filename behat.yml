@@ -10,12 +10,19 @@ default:
       contexts:
         - CakephpBehatSuite\Context\BootstrapContext:
             bootstrap: '%paths.base%/tests/bootstrap.php'
-        - CakephpBehatSuite\Test\Behat\Context\AppContext
+        - CakephpBehatSuite\Context\CliContext
+        - CakephpBehatSuite\Context\DatabaseContext
+        - CakephpBehatSuite\Context\EmailContext
+        - CakephpBehatSuite\Context\FixtureFactoriesContext
+        - CakephpBehatSuite\Context\HttpRequestContext
     test-plugin:
       paths:
         - '%paths.base%/tests/TestApp/plugins/TestPlugin/tests/Behat/features'
       contexts:
         - CakephpBehatSuite\Context\BootstrapContext:
             bootstrap: '%paths.base%/tests/bootstrap.php'
-        - CakephpBehatSuite\Test\Behat\Context\AppContext
-
+        - CakephpBehatSuite\Context\CliContext
+        - CakephpBehatSuite\Context\DatabaseContext
+        - CakephpBehatSuite\Context\EmailContext
+        - CakephpBehatSuite\Context\FixtureFactoriesContext
+        - CakephpBehatSuite\Context\HttpRequestContext

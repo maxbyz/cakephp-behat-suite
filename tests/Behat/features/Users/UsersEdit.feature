@@ -3,9 +3,14 @@ Feature: Users edit
   Background:
     Given I am a user with a UsersGroups.Permissions name Users
     And I log in
-    And I create a user :
-      | id | username    | email          |
-      | 1  | foouser     | foo@foo.foo    |
+    And I create a user
+    """
+    {
+      "id": 1,
+      "username": "foouser",
+      "email": "foo@foo.foo"
+    }
+    """
 
   Scenario:
     When I get 'users/edit/1'

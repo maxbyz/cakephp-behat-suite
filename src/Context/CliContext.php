@@ -19,15 +19,39 @@ namespace CakephpBehatSuite\Context;
 
 use Cake\TestSuite\ConsoleIntegrationTestTrait;
 
-abstract class CommandContext extends BaseContext
+class CliContext extends BaseContext
 {
     use ConsoleIntegrationTestTrait;
 
     /** @BeforeScenario */
     public function beforeScenario(): void
     {
-        parent::beforeScenario();
-
         $this->useCommandRunner();
+    }
+
+    /**
+     * @When I run command :cmd
+     *
+     * @param string $cmd The command to run
+     */
+    public function runCommand(string $cmd)
+    {
+        $this->exec($cmd);
+    }
+
+    /**
+     * @Then the exit code is :n
+     */
+    public function theExitCodeIs(int $n)
+    {
+        $this->assertExitCode($n);
+    }
+
+    /**
+     * @Then the output contains :output
+     */
+    public function theOutputContains(string $ouput)
+    {
+        $this->assertOutputContains($ouput);
     }
 }

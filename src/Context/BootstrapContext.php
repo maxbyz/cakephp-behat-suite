@@ -18,6 +18,8 @@ declare(strict_types=1);
 namespace CakephpBehatSuite\Context;
 
 use Behat\Behat\Context\Context;
+use Cake\Event\EventManager;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use CakephpTestSuiteLight\FixtureInjector;
 use CakephpTestSuiteLight\FixtureManager;
@@ -44,5 +46,9 @@ final class BootstrapContext extends TestCase implements Context
     public function beforeScenario(): void
     {
         $this->fixtureInjector->startTest($this);
+
+        TableRegistry::getTableLocator()->clear();
+        $this->clearPlugins();
+        EventManager::instance(new EventManager());
     }
 }

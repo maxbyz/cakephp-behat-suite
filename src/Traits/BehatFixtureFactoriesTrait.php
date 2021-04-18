@@ -17,42 +17,16 @@ declare(strict_types=1);
 
 namespace CakephpBehatSuite\Traits;
 
-use Behat\Gherkin\Node\TableNode;
-use Cake\Datasource\EntityInterface;
-use Cake\Datasource\ResultSetInterface;
+use Cake\ORM\Table;
+use Cake\Utility\Inflector;
 use CakephpFixtureFactories\Factory\FactoryAwareTrait;
-use Exception;
 
 trait BehatFixtureFactoriesTrait
 {
+    use BehatUtilTrait;
     use FactoryAwareTrait;
 
-    /**
-     * @Given I create :n :model
-     *
-     * @param int|string $n
-     * @param string $model
-     * @return array|EntityInterface|EntityInterface[]|ResultSetInterface|false|null
-     * @throws Exception
-     */
-    public function iCreateModel($n, string $model)
-    {
-        return $this->getFactory($model)
-            ->setTimes($this->processN($n))
-            ->persist();
-    }
-
-    /**
-     * @Given I create :n :modelName with :field :value
-     *
-     * @param int|string $n
-     * @param string $modelName
-     * @param string  $field
-     * @param int|string  $value
-     * @return array|EntityInterface|EntityInterface[]|ResultSetInterface|false|null
-     * @throws Exception
-     */
-    public function iCreateModelWithField($n, string $modelName, string $field, $value)
+    public function createModelWithField($n, string $modelName, string $field, $value)
     {
         return $this->getFactory($modelName)
             ->patchData([$field => $value])
@@ -60,35 +34,18 @@ trait BehatFixtureFactoriesTrait
             ->persist();
     }
 
-    /**
-     * @Given I create :n :modelName :
-     *
-     * @param int|string    $n
-     * @param string $modelName
-     * @param TableNode  $data
-     * @return array|EntityInterface|EntityInterface[]|ResultSetInterface|false|null
-     * @throws Exception
-     */
-    public function iCreateModelWithData($n, string $modelName, TableNode $data)
+    public function createModelWithData($n, string $modelName, $data = null)
     {
-        return $this->getFactory($modelName)
-            ->patchData($this->tableNodeToArray($data))
-            ->setTimes($this->processN($n))
-            ->persist();
+        $factory = $this->getFactory($modelName)->setTimes($this->processN($n));
+
+        if ($data !== null) {
+            $factory->patchData($this->payloadToArray($data));
+        }
+
+        return $factory->persist();
     }
 
-    /**
-     * @Given I create :n :modelName with :m :associationPath :field :value
-     *
-     * @param int|string    $n
-     * @param string $modelName
-     * @param int|string  $m
-     * @param string $associationPath
-     * @param string $field
-     * @param string|int $value
-     * @return array|EntityInterface|EntityInterface[]|ResultSetInterface|false|null
-     */
-    public function iCreateModelWithAssociatedField($n, string $modelName, $m, string $associationPath, string $field, $value)
+    public function createModelWithAssociatedField($n, string $modelName, $m, string $associationPath, string $field, $value)
     {
         $m = $this->processN($m);
         return $this->getFactory($modelName)
@@ -97,22 +54,23 @@ trait BehatFixtureFactoriesTrait
             ->persist();
     }
 
-    /**
-     * @Given I create :n :modelName with :associationPath :
-     *
-     * @param int|string    $n
-     * @param string $modelName
-     * @param string $associationPath
-     * @param TableNode $data
-     * @return array|EntityInterface|EntityInterface[]|ResultSetInterface|false|null
-     */
-    public function iCreateModelWithAssociatedData($n, string $modelName, string $associationPath, TableNode $data)
+    public function createModelWithAssociatedData($n, string $modelName, string $associationPath, $data = null)
     {
-        $data = $this->tableNodeToArray($data);
+        $data = $this->payloadToArray($data);
 
         return $this->getFactory($modelName)
             ->setTimes($this->processN($n))
             ->with($associationPath, $data)
             ->persist();
+    }
+
+    /**
+     * @param string $table
+     *
+     * @return Table
+     */
+    public function getTable(string $table): Table
+    {
+        return $this->getFactory(ucfirst(Inflector::pluralize($table)))->getRootTableRegistry();
     }
 }

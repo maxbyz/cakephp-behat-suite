@@ -3,8 +3,7 @@ Feature: Users view
   Background:
     Given I am a user with a UsersGroups.Permissions name Users
     And I log in
-#    And I create a user with id 1
-    And I create a user :
+    And I create a user
       | id | username    | email          |
       | 1  | foouser     | foo@foo.foo    |
 

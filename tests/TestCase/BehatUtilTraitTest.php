@@ -15,14 +15,12 @@ declare(strict_types=1);
 namespace CakephpBehatSuite\Test\TestCase;
 
 use Cake\TestSuite\TestCase;
-use CakephpBehatSuite\BehatUtil;
+use CakephpBehatSuite\Traits\BehatUtilTrait;
 use CakephpTestSuiteLight\SkipTablesTruncation;
-use TestApp\Test\Factory\UserFactory;
-use TestPlugin\Test\Factory\BillFactory;
 
-class BehatUtilTest extends TestCase
+class BehatUtilTraitTest extends TestCase
 {
-    use SkipTablesTruncation;
+    use BehatUtilTrait;
 
     public function dataProviderForTestProcessN()
     {
@@ -47,6 +45,6 @@ class BehatUtilTest extends TestCase
      */
     public function testProcessN($input, $expected)
     {
-        $this->assertSame($expected, BehatUtil::processN($input));
+        $this->assertSame($expected, $this->processN($input));
     }
 }

@@ -6,8 +6,8 @@ namespace TestApp\Controller;
 /**
  * Users Controller
  *
- * @property \App\Model\Table\UsersTable $Users
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \TestApp\Model\Table\UsersTable $Users
+ * @method \TestApp\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController
 {

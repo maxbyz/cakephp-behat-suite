@@ -25,19 +25,9 @@ use Cake\TestSuite\TestCase;
 use CakephpBehatSuite\Traits\BehatFixtureFactoriesTrait;
 use CakephpBehatSuite\Traits\BehatTableRegistryTrait;
 use CakephpBehatSuite\Traits\BehatUtil;
+use CakephpBehatSuite\Traits\BehatUtilTrait;
 
 abstract class BaseContext extends TestCase implements Context
 {
-    use IntegrationTestTrait;
-    use BehatFixtureFactoriesTrait;
-    use BehatTableRegistryTrait;
-    use BehatUtil;
-
-    /** @BeforeScenario */
-    public function beforeScenario(): void
-    {
-        TableRegistry::getTableLocator()->clear();
-        $this->clearPlugins();
-        EventManager::instance(new EventManager());
-    }
+    use BehatUtilTrait;
 }

@@ -19,7 +19,7 @@ Feature: Users authentication
 
 #  User without permission
   Scenario:
-    Given I am an user
+    Given I am a user
     And I log in
     When I get 'users/view/1'
     Then I am redirected to 'home'

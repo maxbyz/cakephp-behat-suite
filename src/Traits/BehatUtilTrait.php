@@ -17,9 +17,10 @@ declare(strict_types=1);
 
 namespace CakephpBehatSuite\Traits;
 
+use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 
-trait BehatUtil
+trait BehatUtilTrait
 {
     /**
      * If only one entry is provided, it returns that first entry only
@@ -73,5 +74,24 @@ trait BehatUtil
         }
 
         return $array;
+    }
+
+    /**
+     * Convert the payload to an array
+     *
+     * @param PyStringNode|TableNode $payload
+     * @return void
+     */
+    protected function payloadToArray($payload): array
+    {
+        if ($payload instanceof TableNode) {
+            $payload = $this->tableNodeToArray($payload);
+        } elseif ($payload instanceof PyStringNode) {
+            $payload = $this->jsonDecodeToArray($payload->getRaw());
+        } else {
+            throw new \Exception("Unknown payload type :" . get_class($payload));
+        }
+
+        return $payload;
     }
 }
