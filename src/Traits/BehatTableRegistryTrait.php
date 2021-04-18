@@ -18,14 +18,19 @@ declare(strict_types=1);
 namespace CakephpBehatSuite\Traits;
 
 use Behat\Gherkin\Node\TableNode;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
-use CakephpBehatSuite\BehatUtil;
 use PHPUnit\Framework\Assert;
 
 trait BehatTableRegistryTrait
 {
+    /**
+     * @var EntityInterface
+     */
+    public $entity;
+
     /**
      * @param string $table
      *
@@ -47,8 +52,24 @@ trait BehatTableRegistryTrait
      */
     public function thisModelExists(string $model, TableNode $data): void
     {
-        $data = BehatUtil::processTableNode($data);
-        Assert::assertTrue($this->getTable($model)->exists($data));
+        $data = $this->processTableNode($data);
+        Assert::assertTrue($this->getTable($model)->exists($data), "The {$model} could not be found.");
+    }
+
+    /**
+     * @Then the table registry :model has:
+     *
+     * @param string    $model
+     * @param TableNode $data
+     * @return void
+     */
+    public function theTableRegistryHas(string $model, TableNode $data): void
+    {
+        $data = $this->processTableNode($data);
+        Assert::assertTrue(
+            TableRegistry::getTableLocator()->get($model)->exists($data),
+            "The {$model} could not be found."
+        );
     }
 
     /**
@@ -60,7 +81,10 @@ trait BehatTableRegistryTrait
      */
     public function theModelWithIdExists(string $model, int $id): void
     {
-        Assert::assertTrue($this->getTable($model)->exists(compact('id')));
+        Assert::assertTrue(
+            $this->getTable($model)->exists(compact('id')),
+            "The {$model} could not be found."
+        );
     }
 
     /**

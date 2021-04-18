@@ -2,7 +2,7 @@
 default:
   autoload:
 #    Directory where context and features are placed by default
-    '': '%paths.base%/tests/Behat'
+    'test': '%paths.base%/tests/Behat'
   suites:
     app:
       paths:
@@ -10,9 +10,12 @@ default:
       contexts:
         - CakephpBehatSuite\Context\BootstrapContext:
             bootstrap: '%paths.base%/tests/bootstrap.php'
+        - CakephpBehatSuite\Test\Behat\Context\AppContext
     test-plugin:
       paths:
         - '%paths.base%/tests/TestApp/plugins/TestPlugin/tests/Behat/features'
       contexts:
         - CakephpBehatSuite\Context\BootstrapContext:
             bootstrap: '%paths.base%/tests/bootstrap.php'
+        - CakephpBehatSuite\Test\Behat\Context\AppContext
+

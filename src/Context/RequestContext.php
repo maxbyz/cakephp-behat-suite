@@ -17,32 +17,22 @@ declare(strict_types=1);
 
 namespace CakephpBehatSuite\Context;
 
-use Behat\Behat\Context\Context;
-use Cake\TestSuite\TestCase;
-use CakephpTestSuiteLight\FixtureInjector;
-use CakephpTestSuiteLight\FixtureManager;
+use CakephpBehatSuite\Traits\BehatAuthTrait;
+use CakephpBehatSuite\Traits\BehatRequestTrait;
+use CakephpBehatSuite\Traits\BehatResponseTrait;
 
-final class BootstrapContext extends TestCase implements Context
+abstract class RequestContext extends BaseContext
 {
-    /**
-     * @var FixtureInjector $fixtureInjector
-     */
-    protected $fixtureInjector;
-
-    /**
-     * BootstrapContext constructor.
-     *
-     * @param string $bootstrap
-     */
-    public function __construct(string $bootstrap)
-    {
-        require_once $bootstrap;
-        $this->fixtureInjector = new FixtureInjector(new FixtureManager());
-    }
+    Use BehatAuthTrait;
+    use BehatRequestTrait;
+    use BehatResponseTrait;
 
     /** @BeforeScenario */
     public function beforeScenario(): void
     {
-        $this->fixtureInjector->startTest($this);
+        parent::beforeScenario();
+
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
     }
 }

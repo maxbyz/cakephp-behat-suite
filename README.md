@@ -56,7 +56,7 @@ For CakePHP ^3.8:
 composer require --dev passbolt/cakephp-behat-suite "^0.1"
 ```
 
-Copy this file in the main directory of your app, under the name `behat.yml:
+Copy this file in the main directory of your app, under the name `behat.yml`:
 ```
 #behat.yml
 default:
@@ -89,8 +89,12 @@ The package provides a set of steps defined by `CakephpBehatSuite\Context\Bootst
 How to use the suite?
 =============================
 
+## Read the doc
+
+The official Behat documentation is located [here](https://docs.behat.org/en/latest/quick_start.html).
+
 ## Run your tests
-The command `vendor/bin/behat` will run your tests as defined in the `behat.yml file.
+The command `vendor/bin/behat` will run your tests as defined in the `behat.yml` file.
 
 ## Fixture factories
 The package makes uses of the CakePHP fixture factories plugin. Make sure your factories are

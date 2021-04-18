@@ -9,7 +9,7 @@ Feature: Users index
     | username  | email        |
     | foo       | bar@bar.bar  |
     And I get 'users/index'
-    Then the response is OK
+    Then the response is successful
     And the response contains 'foo'
     And the response contains 'bar@bar.bar'
 

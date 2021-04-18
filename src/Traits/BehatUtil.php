@@ -15,11 +15,11 @@ declare(strict_types=1);
  * @since         1.0.0
  */
 
-namespace CakephpBehatSuite;
+namespace CakephpBehatSuite\Traits;
 
 use Behat\Gherkin\Node\TableNode;
 
-class BehatUtil
+trait BehatUtil
 {
     /**
      * If only one entry is provided, it returns that first entry only
@@ -28,7 +28,7 @@ class BehatUtil
      *
      * @return array
      */
-    public static function processTableNode(TableNode $table): array
+    public function processTableNode(TableNode $table): array
     {
         $data = $table->getColumnsHash();
         if (count($data) === 1) {
@@ -45,7 +45,7 @@ class BehatUtil
      *
      * @return int
      */
-    public static function processN($n): int
+    public function processN($n): int
     {
         if (is_string($n)) {
             if (in_array($n, [
@@ -57,5 +57,21 @@ class BehatUtil
             }
         }
         return $n;
+    }
+
+    /**
+     * Parses a json into an array.
+     *
+     * @param string $json The json string to decode
+     * @throws \Exception
+     */
+    public function jsonDecodeToArray(string $json): array
+    {
+        $array = json_decode($json, true);
+        if (is_null($array)) {
+            throw new \Exception("{$json} could not be parsed to array.");
+        }
+
+        return $array;
     }
 }

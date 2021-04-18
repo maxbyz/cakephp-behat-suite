@@ -10,7 +10,7 @@ Feature: Users view
 
   Scenario:
     When I get 'users/view/1'
-    Then the response is OK
+    Then the response is successful
     And the response contains 'foouser'
     And the response contains 'foo@foo.foo'
 

@@ -9,7 +9,7 @@ Feature: Users edit
 
   Scenario:
     When I get 'users/edit/1'
-    Then the response is OK
+    Then the response is successful
     And the response contains 'foo@foo.foo'
     And the response contains 'foouser'
 
@@ -20,7 +20,7 @@ Feature: Users edit
 
 # Edit an existing user
   Scenario:
-    When I post 'users/edit/1' with data:
+    When I post 'users/edit/1' with payload:
       | username      | email          |
       | baruser       | bar@bar.bar    |
     Then I am redirected to 'users'

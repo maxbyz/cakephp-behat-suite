@@ -20,7 +20,6 @@ namespace CakephpBehatSuite\Traits;
 use Behat\Gherkin\Node\TableNode;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
-use CakephpBehatSuite\BehatUtil;
 use CakephpFixtureFactories\Factory\FactoryAwareTrait;
 use Exception;
 
@@ -39,7 +38,7 @@ trait BehatFixtureFactoriesTrait
     public function iCreateModel($n, string $model)
     {
         return $this->getFactory($model)
-            ->setTimes(BehatUtil::processN($n))
+            ->setTimes($this->processN($n))
             ->persist();
     }
 
@@ -57,7 +56,7 @@ trait BehatFixtureFactoriesTrait
     {
         return $this->getFactory($modelName)
             ->patchData([$field => $value])
-            ->setTimes(BehatUtil::processN($n))
+            ->setTimes($this->processN($n))
             ->persist();
     }
 
@@ -73,8 +72,8 @@ trait BehatFixtureFactoriesTrait
     public function iCreateModelWithData($n, string $modelName, TableNode $data)
     {
         return $this->getFactory($modelName)
-            ->patchData(BehatUtil::processTableNode($data))
-            ->setTimes(BehatUtil::processN($n))
+            ->patchData($this->processTableNode($data))
+            ->setTimes($this->processN($n))
             ->persist();
     }
 
@@ -91,9 +90,9 @@ trait BehatFixtureFactoriesTrait
      */
     public function iCreateModelWithAssociatedField($n, string $modelName, $m, string $associationPath, string $field, $value)
     {
-        $m = BehatUtil::processN($m);
+        $m = $this->processN($m);
         return $this->getFactory($modelName)
-            ->setTimes(BehatUtil::processN($n))
+            ->setTimes($this->processN($n))
             ->with($associationPath."[$m]", [$field => $value])
             ->persist();
     }
@@ -109,10 +108,10 @@ trait BehatFixtureFactoriesTrait
      */
     public function iCreateModelWithAssociatedData($n, string $modelName, string $associationPath, TableNode $data)
     {
-        $data = BehatUtil::processTableNode($data);
+        $data = $this->processTableNode($data);
 
         return $this->getFactory($modelName)
-            ->setTimes(BehatUtil::processN($n))
+            ->setTimes($this->processN($n))
             ->with($associationPath, $data)
             ->persist();
     }

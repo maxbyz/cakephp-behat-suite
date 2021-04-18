@@ -37,7 +37,7 @@ class AppController extends Controller
             return parent::beforeFilter($event);
         }
 
-        $user = $this->getRequest()->getSession()->read('Auth.User');
+        $user = $this->getRequest()->getSession()->read('Auth');
         $controller = $this->getName();
 
         if (!$this->Users->hasPermission($user, $controller)) {

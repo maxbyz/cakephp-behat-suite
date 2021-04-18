@@ -33,15 +33,18 @@ class UsersTable extends Table
     }
 
     /**
-     * @param User   $user
+     * @param User|array   $user
      * @param string $permission
      *
      * @return bool
      */
-    public function hasPermission(User $user, string $permission)
+    public function hasPermission($user, string $permission)
     {
         $allowed = ['Admin', 'Guru', $permission];
-        $permissions = Hash::extract($user->toArray(), 'users_groups.{n}.permissions.{n}.name');
+        if ($user instanceof User) {
+            $user = $user->toArray();
+        }
+        $permissions = Hash::extract($user, 'users_groups.{n}.permissions.{n}.name');
         return !empty(array_intersect($allowed, $permissions));
     }
 }

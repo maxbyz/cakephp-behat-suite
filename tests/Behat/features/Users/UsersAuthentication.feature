@@ -8,7 +8,7 @@ Feature: Users authentication
     Given I am a user with a UsersGroups.Permissions name Users
     And I log in
     When I get 'users/view/1'
-    Then the response is OK
+    Then the response is successful
 
 #  User with correct permission on non existing entity
   Scenario:

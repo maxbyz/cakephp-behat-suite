@@ -1,13 +1,13 @@
 Feature: Bills view
 
   Background:
-    Given I create 1 TestPlugin.bill with id 1
+    Given I create a TestPlugin.bill with id 1
     And I am a user with a UsersGroups.Permissions name Bills
     And I log in
 
   Scenario:
     When I get 'test-plugin/Bills/view/1'
-    Then the response is OK
+    Then the response is successful
 
   Scenario:
     When I get 'test-plugin/Bills/view/200'
